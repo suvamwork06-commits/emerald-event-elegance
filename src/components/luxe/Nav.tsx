@@ -8,8 +8,7 @@ import { LuxeButton } from "./LuxeButton";
 import { cn } from "@/lib/utils";
 import { useAuthUser } from "@/hooks/use-auth-user";
 
-
-const links = [
+const publicLinks = [
   { to: "/", label: "Home" },
   { to: "/events", label: "Events" },
   { to: "/catering", label: "Catering" },
@@ -19,6 +18,11 @@ export function Nav() {
   const [solid, setSolid] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const { open } = useQuote();
+  const { user } = useAuthUser();
+
+  const links = user
+    ? ([...publicLinks, { to: "/admin/enquiries", label: "Admin" }] as const)
+    : publicLinks;
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 40);
