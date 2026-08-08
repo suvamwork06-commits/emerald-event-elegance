@@ -6,12 +6,13 @@ export interface EnquiryInput {
   email: string;
   phone: string;
   eventType: string;
-  date?: string | null;
-  guests?: string | null;
+  date?: string | null | undefined;
+  guests?: string | null | undefined;
   city: string;
-  budget?: string | null;
-  notes?: string | null;
+  budget?: string | null | undefined;
+  notes?: string | null | undefined;
 }
+
 
 
 function isNewSupabaseApiKey(value: string): boolean {
