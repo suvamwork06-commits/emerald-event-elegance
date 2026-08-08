@@ -295,6 +295,13 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                     </dl>
                   ) : null}
 
+                  {error ? (
+                    <div className="mt-8 flex items-center gap-2 rounded border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
+                      <AlertCircle className="size-4 shrink-0" />
+                      <span>{error}</span>
+                    </div>
+                  ) : null}
+
                   <div className="mt-10 flex items-center justify-between gap-4">
                     <button
                       type="button"
@@ -314,6 +321,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                       </LuxeButton>
                     )}
                   </div>
+
                 </form>
               </>
             )}
