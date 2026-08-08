@@ -26,20 +26,18 @@ export async function sendTemplateEmail(
 
   const recipients = Array.isArray(to) ? to : [to];
   const results = await Promise.all(
-    recipients.map((recipient) =>
-      sendLovableEmail(
-        {
-          to: recipient,
-          from: `concierge@${SENDER_DOMAIN}`,
-          sender_domain: SENDER_DOMAIN,
-          subject,
-          html,
-          text,
-          idempotency_key: options.idempotencyKey,
-        },
-        { apiKey: process.env["LOVABLE_API_KEY"] ?? "" },
-      ),
-    ),
+    recipients.map((recipient) => {
+      const payload: Parameters<typeof sendLovableEmail>[0] = {
+        to: recipient,
+        from: `concierge@${SENDER_DOMAIN}`,
+        sender_domain: SENDER_DOMAIN,
+        subject,
+        html,
+        text,
+        idempotency_key: options.idempotencyKey ?? "",
+      };
+      return sendLovableEmail(payload, { apiKey: process.env["LOVABLE_API_KEY"] ?? "" });
+    }),
   );
 
   return results[0];
