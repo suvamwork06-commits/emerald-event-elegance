@@ -1,6 +1,18 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
-import type { EnquiryInput } from "./enquiries.functions";
+
+export interface EnquiryInput {
+  name: string;
+  email: string;
+  phone: string;
+  eventType: string;
+  date?: string | null;
+  guests?: string | null;
+  city: string;
+  budget?: string | null;
+  notes?: string | null;
+}
+
 
 function isNewSupabaseApiKey(value: string): boolean {
   return value.startsWith("sb_publishable_") || value.startsWith("sb_secret_");
