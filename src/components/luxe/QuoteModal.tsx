@@ -6,13 +6,15 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { AnimatePresence, motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Check, X } from "lucide-react";
+import { Check, X, AlertCircle } from "lucide-react";
 import { LuxeButton } from "./LuxeButton";
-import { sendEnquiry } from "@/lib/emailjs";
+import { submitEnquiry } from "@/lib/enquiries.functions";
+
 
 const schema = z.object({
   name: z.string().min(2, "Please share your full name"),
@@ -79,6 +81,8 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const submit = useServerFn(submitEnquiry);
 
   const form = useForm<QuoteValues>({
     resolver: zodResolver(schema),
@@ -103,6 +107,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
     window.setTimeout(() => {
       setStep(0);
       setDone(false);
+      setError(null);
       reset();
     }, 500);
   };
@@ -114,23 +119,29 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
 
   const onSubmit = async (values: QuoteValues) => {
     setSending(true);
+    setError(null);
     try {
-      await sendEnquiry({
-        from_name: values.name,
-        reply_to: values.email,
-        phone: values.phone,
-        event_type: values.eventType,
-        event_date: values.date,
-        guests: values.guests,
-        city: values.city,
-        budget: values.budget,
-        notes: values.notes ?? "",
+      await submit({
+        data: {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          eventType: values.eventType,
+          date: values.date || null,
+          guests: values.guests || null,
+          city: values.city,
+          budget: values.budget || null,
+          notes: values.notes || null,
+        },
       });
       setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not send your enquiry. Please try again.");
     } finally {
       setSending(false);
     }
   };
+
 
   const values = getValues();
 
@@ -284,6 +295,13 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                     </dl>
                   ) : null}
 
+                  {error ? (
+                    <div className="mt-8 flex items-center gap-2 rounded border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
+                      <AlertCircle className="size-4 shrink-0" />
+                      <span>{error}</span>
+                    </div>
+                  ) : null}
+
                   <div className="mt-10 flex items-center justify-between gap-4">
                     <button
                       type="button"
@@ -303,6 +321,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                       </LuxeButton>
                     )}
                   </div>
+
                 </form>
               </>
             )}
