@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CateringRouteImport } from './routes/catering'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -17,6 +18,11 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CateringRoute = CateringRouteImport.update({
@@ -37,12 +43,14 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/catering': typeof CateringRoute
   '/events': typeof EventsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/catering': typeof CateringRoute
   '/events': typeof EventsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -50,20 +58,22 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/catering': typeof CateringRoute
   '/events': typeof EventsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/catering' | '/events' | '/sitemap.xml'
+  fullPaths: '/' | '/auth' | '/catering' | '/events' | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/catering' | '/events' | '/sitemap.xml'
-  id: '__root__' | '/' | '/catering' | '/events' | '/sitemap.xml'
+  to: '/' | '/auth' | '/catering' | '/events' | '/sitemap.xml'
+  id: '__root__' | '/' | '/auth' | '/catering' | '/events' | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   CateringRoute: typeof CateringRoute
   EventsRoute: typeof EventsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/catering': {
@@ -104,6 +121,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   CateringRoute: CateringRoute,
   EventsRoute: EventsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -111,13 +129,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
