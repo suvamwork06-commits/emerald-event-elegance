@@ -37,3 +37,17 @@ export const submitNewsletter = createServerFn({ method: "POST" })
 
     return { ok: true, alreadySubscribed: false };
   });
+
+export const getSubscribers = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async () => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("newsletter_subscribers")
+      .select("id, email, created_at")
+      .order("created_at", { ascending: false });
+
+    if (error) throw new Error("Could not load subscribers.");
+    return data ?? [];
+  });
+
