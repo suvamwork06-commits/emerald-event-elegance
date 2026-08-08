@@ -17,21 +17,30 @@ export async function sendTemplateEmail(
     throw new Error(`Template "${templateName}" not found`);
   }
 
-  const html = await render(template.component(options.templateData ?? {}), {
-    pretty: true,
-  });
+  const data = options.templateData ?? {};
+  const html = await render(template.component(data), { pretty: true });
+  const text = "New enquiry notification. Please view this email in an HTML client.";
 
   const subject =
-    typeof template.subject === "function"
-      ? template.subject(options.templateData ?? {})
-      : template.subject;
+    typeof template.subject === "function" ? template.subject(data) : template.subject;
 
-  return sendLovableEmail({
-    to,
-    from: { name: "Maison Aurelle", email: `concierge@${SENDER_DOMAIN}` },
-    subject,
-    html,
-    idempotencyKey: options.idempotencyKey,
-    domain: SENDER_DOMAIN,
-  });
+  const recipients = Array.isArray(to) ? to : [to];
+  const results = await Promise.all(
+    recipients.map((recipient) =>
+      sendLovableEmail(
+        {
+          to: recipient,
+          from: `concierge@${SENDER_DOMAIN}`,
+          sender_domain: SENDER_DOMAIN,
+          subject,
+          html,
+          text,
+          idempotency_key: options.idempotencyKey,
+        },
+        { apiKey: process.env["LOVABLE_API_KEY"] ?? "" },
+      ),
+    ),
+  );
+
+  return results[0];
 }
