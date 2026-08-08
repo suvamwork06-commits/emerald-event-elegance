@@ -2,10 +2,12 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 const schema = z.object({
   email: z.string().email("Invalid email address").max(255),
 });
+
 
 export const submitNewsletter = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => schema.parse(input))
