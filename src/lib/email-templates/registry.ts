@@ -1,4 +1,5 @@
 import type { ReactElement } from "react";
+import { template as newEnquiryTemplate } from "./new-enquiry";
 
 export type TemplateEntry = {
   component: (props: Record<string, unknown>) => ReactElement;
@@ -8,6 +9,8 @@ export type TemplateEntry = {
   to?: string | ((data: Record<string, unknown>) => string | string[]);
 };
 
-export const TEMPLATES: Record<string, TemplateEntry> = {};
+export const TEMPLATES: Record<string, TemplateEntry> = {
+  "new-enquiry": newEnquiryTemplate,
+};
 
 export type TemplateName = keyof typeof TEMPLATES;
