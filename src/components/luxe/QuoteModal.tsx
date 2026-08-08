@@ -81,6 +81,8 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const submit = useServerFn(submitEnquiry);
 
   const form = useForm<QuoteValues>({
     resolver: zodResolver(schema),
@@ -105,6 +107,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
     window.setTimeout(() => {
       setStep(0);
       setDone(false);
+      setError(null);
       reset();
     }, 500);
   };
@@ -116,23 +119,29 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
 
   const onSubmit = async (values: QuoteValues) => {
     setSending(true);
+    setError(null);
     try {
-      await sendEnquiry({
-        from_name: values.name,
-        reply_to: values.email,
-        phone: values.phone,
-        event_type: values.eventType,
-        event_date: values.date,
-        guests: values.guests,
-        city: values.city,
-        budget: values.budget,
-        notes: values.notes ?? "",
+      await submit({
+        data: {
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          eventType: values.eventType,
+          date: values.date || null,
+          guests: values.guests || null,
+          city: values.city,
+          budget: values.budget || null,
+          notes: values.notes || null,
+        },
       });
       setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not send your enquiry. Please try again.");
     } finally {
       setSending(false);
     }
   };
+
 
   const values = getValues();
 
