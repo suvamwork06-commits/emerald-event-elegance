@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { insertEnquiry, listEnquiries, updateEnquiryStatus } from "./enquiries.server";
+import { insertEnquiry, listEnquiries, updateEnquiryStatus, type EnquiryInput } from "./enquiries.server";
 
 const enquirySchema = z.object({
   name: z.string().min(2),
@@ -15,7 +15,6 @@ const enquirySchema = z.object({
   notes: z.string().optional().nullable(),
 });
 
-export type EnquiryInput = z.infer<typeof enquirySchema>;
 
 export const submitEnquiry = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => enquirySchema.parse(input))
