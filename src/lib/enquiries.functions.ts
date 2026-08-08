@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import type { Database } from "@/integrations/supabase/types";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { insertEnquiry, listEnquiries, updateEnquiryStatus } from "./enquiries.server";
 
 const enquirySchema = z.object({
   name: z.string().min(2),
@@ -16,34 +17,10 @@ const enquirySchema = z.object({
 
 export type EnquiryInput = z.infer<typeof enquirySchema>;
 
-function createSupabasePublic() {
-  const { createClient } = require("@supabase/supabase-js") as typeof import("@supabase/supabase-js");
-  return createClient<Database>(process.env["SUPABASE_URL"]!, process.env["SUPABASE_PUBLISHABLE_KEY"]!, {
-    auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
-  });
-}
-
 export const submitEnquiry = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => enquirySchema.parse(input))
   .handler(async ({ data }) => {
-    const supabase = createSupabasePublic();
-
-    const { error } = await supabase.from("enquiries").insert({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      event_type: data.eventType,
-      event_date: data.date ?? null,
-      guests: data.guests ?? null,
-      city: data.city,
-      budget: data.budget ?? null,
-      notes: data.notes ?? null,
-    });
-
-    if (error) {
-      console.error("[submitEnquiry] insert error:", error);
-      throw new Error("Could not save your enquiry. Please try again.");
-    }
+    await insertEnquiry(data);
 
     try {
       const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
@@ -66,9 +43,29 @@ export const submitEnquiry = createServerFn({ method: "POST" })
         idempotencyKey: `enquiry-${data.email}-${Date.now()}`,
       });
     } catch (emailError) {
-      // Email notification is a best-effort add-on; do not fail the enquiry.
       console.error("[submitEnquiry] email notification error:", emailError);
     }
 
+    return { success: true };
+  });
+
+export const getEnquiries = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    return listEnquiries(context.supabase);
+  });
+
+export const updateEnquiry = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) =>
+    z
+      .object({
+        id: z.string().uuid(),
+        status: z.enum(["new", "contacted", "qualified", "booked", "archived"]),
+      })
+      .parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await updateEnquiryStatus(context.supabase, data.id, data.status);
     return { success: true };
   });
