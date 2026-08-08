@@ -6,13 +6,15 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { AnimatePresence, motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Check, X } from "lucide-react";
+import { Check, X, AlertCircle } from "lucide-react";
 import { LuxeButton } from "./LuxeButton";
-import { sendEnquiry } from "@/lib/emailjs";
+import { submitEnquiry } from "@/lib/enquiries.functions";
+
 
 const schema = z.object({
   name: z.string().min(2, "Please share your full name"),
