@@ -2,10 +2,29 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { brand } from "@/lib/content";
 import { LuxeButton } from "./LuxeButton";
+import { submitNewsletter } from "@/lib/newsletter.functions";
 
 export function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage(null);
+    try {
+      const result = await submitNewsletter({ data: { email } });
+      setSubscribed(true);
+      setEmail("");
+      setMessage(result.alreadySubscribed ? "You're already on the list." : "Thank you — welcome to the atelier.");
+    } catch (err) {
+      setMessage("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <footer className="grain border-t border-border bg-surface">
@@ -20,14 +39,7 @@ export function Footer() {
               celebrations for families and houses who expect quiet perfection.
             </p>
 
-            <form
-              className="mt-10 max-w-sm"
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSubscribed(true);
-                setEmail("");
-              }}
-            >
+            <form className="mt-10 max-w-sm" onSubmit={handleSubmit}>
               <label className="eyebrow mb-4 block" htmlFor="newsletter">
                 The Atelier Letter
               </label>
@@ -41,14 +53,12 @@ export function Footer() {
                   placeholder="you@email.com"
                   className="h-12 flex-1 border border-input bg-background/40 px-4 text-sm text-ivory outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-gold"
                 />
-                <LuxeButton size="sm" type="submit">
-                  Join
+                <LuxeButton size="sm" type="submit" disabled={loading}>
+                  {loading ? "Joining…" : "Join"}
                 </LuxeButton>
               </div>
-              {subscribed ? (
-                <p className="mt-3 text-xs text-gold">
-                  Thank you — welcome to the atelier.
-                </p>
+              {message ? (
+                <p className="mt-3 text-xs text-gold">{message}</p>
               ) : null}
             </form>
           </div>
