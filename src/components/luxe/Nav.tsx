@@ -6,6 +6,8 @@ import { brand } from "@/lib/content";
 import { useQuote } from "./QuoteModal";
 import { LuxeButton } from "./LuxeButton";
 import { cn } from "@/lib/utils";
+import { useAuthUser } from "@/hooks/use-auth-user";
+
 
 const links = [
   { to: "/", label: "Home" },
