@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/carousel";
 import {
   brand,
-  featured,
   images,
   instagramFeed,
   portfolio,
@@ -78,7 +77,6 @@ function EventsPage() {
       <Services />
       <Portfolio />
       <Timeline />
-      <Featured />
       <TrustedBy />
       <Testimonials />
       <NumbersBand />
@@ -349,49 +347,6 @@ function Timeline() {
             </li>
           ))}
         </ol>
-      </div>
-    </section>
-  );
-}
-
-function Featured() {
-  return (
-    <section className="bg-surface py-24 md:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <SectionHeading eyebrow="Featured Events" title="Recent productions" />
-
-        <Carousel opts={{ align: "start", loop: true }} className="mt-16 md:mt-24">
-          <CarouselContent className="-ml-5">
-            {featured.map((f) => (
-              <CarouselItem key={f.title} className="pl-5 sm:basis-3/4 lg:basis-1/2">
-                <article className="group relative overflow-hidden rounded-xl border border-border">
-                  <div className="aspect-4/3 overflow-hidden">
-                    <img
-                      src={f.image}
-                      alt={`${f.title}, ${f.place}`}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-8">
-                    <div>
-                      <h3 className="text-3xl text-ivory">{f.title}</h3>
-                      <p className="mt-2 text-[0.68rem] tracking-[0.26em] text-muted-foreground uppercase">
-                        {f.place}
-                      </p>
-                    </div>
-                    <ArrowUpRight className="size-5 shrink-0 text-gold transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1" />
-                  </div>
-                </article>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="mt-10 flex justify-end gap-3">
-            <CarouselPrevious className="static size-12 translate-y-0 rounded-none border-border bg-transparent text-ivory hover:border-gold hover:bg-gold/10 hover:text-gold" />
-            <CarouselNext className="static size-12 translate-y-0 rounded-none border-border bg-transparent text-ivory hover:border-gold hover:bg-gold/10 hover:text-gold" />
-          </div>
-        </Carousel>
       </div>
     </section>
   );
