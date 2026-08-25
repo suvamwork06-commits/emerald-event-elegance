@@ -142,7 +142,7 @@ function Concierge() {
   return (
     <section id="experiences" className="relative bg-background py-24 md:py-36">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="max-w-2xl">
           <Reveal>
             <p className="eyebrow">The Concierge</p>
           </Reveal>

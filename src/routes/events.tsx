@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/carousel";
 import {
   brand,
-  featured,
   images,
   instagramFeed,
   portfolio,
@@ -78,7 +77,6 @@ function EventsPage() {
       <Services />
       <Portfolio />
       <Timeline />
-      <Featured />
       <TrustedBy />
       <Testimonials />
       <NumbersBand />
@@ -259,29 +257,42 @@ function Portfolio() {
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <SectionHeading eyebrow="Portfolio" title="Selected celebrations" />
 
-        <div className="mt-16 gap-5 md:mt-24 md:columns-2 lg:columns-3 [&>*]:mb-5">
-          {portfolio.map((p, i) => (
-            <Reveal key={p.title} delay={(i % 3) * 0.08}>
-              <button
-                onClick={() => setIndex(i)}
-                className="group relative block w-full overflow-hidden rounded-lg border border-border/70 text-left"
-                aria-label={`Open ${p.title}`}
-              >
-                <img
-                  src={p.image}
-                  alt={`${p.title} — ${p.category}`}
-                  loading="lazy"
-                  className="w-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
-                />
-                <div className="absolute inset-0 bg-background/0 transition-colors duration-700 group-hover:bg-background/65" />
-                <div className="absolute inset-x-0 bottom-0 translate-y-3 p-7 opacity-0 transition-all duration-700 group-hover:translate-y-0 group-hover:opacity-100">
-                  <p className="eyebrow">{p.category}</p>
-                  <p className="mt-3 font-display text-2xl text-ivory">{p.title}</p>
-                </div>
-              </button>
-            </Reveal>
-          ))}
-        </div>
+        <Carousel opts={{ align: "start", loop: true }} className="mt-16 md:mt-24">
+          <CarouselContent className="-ml-5">
+            {portfolio.map((p, i) => (
+              <CarouselItem key={p.title} className="pl-5 sm:basis-3/4 lg:basis-1/2">
+                <button
+                  onClick={() => setIndex(i)}
+                  aria-label={`Open ${p.title}`}
+                  className="group relative block w-full overflow-hidden rounded-xl border border-border text-left"
+                >
+                  <div className="aspect-4/3 overflow-hidden">
+                    <img
+                      src={p.image}
+                      alt={`${p.title} — ${p.category}`}
+                      loading="lazy"
+                      className="size-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-8">
+                    <div>
+                      <h3 className="text-3xl text-ivory">{p.title}</h3>
+                      <p className="mt-2 text-[0.68rem] tracking-[0.26em] text-muted-foreground uppercase">
+                        {p.category}
+                      </p>
+                    </div>
+                    <ArrowUpRight className="size-5 shrink-0 text-gold transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1" />
+                  </div>
+                </button>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="mt-10 flex justify-end gap-3">
+            <CarouselPrevious className="static size-12 translate-y-0 rounded-none border-border bg-transparent text-ivory hover:border-gold hover:bg-gold/10 hover:text-gold" />
+            <CarouselNext className="static size-12 translate-y-0 rounded-none border-border bg-transparent text-ivory hover:border-gold hover:bg-gold/10 hover:text-gold" />
+          </div>
+        </Carousel>
       </div>
 
       <Lightbox
@@ -301,7 +312,6 @@ function Timeline() {
         <SectionHeading
           eyebrow="The Experience"
           title="Six movements from first call to last dance"
-          align="center"
         />
 
         <ol className="relative mx-auto mt-20 max-w-3xl md:mt-28">
@@ -342,49 +352,6 @@ function Timeline() {
   );
 }
 
-function Featured() {
-  return (
-    <section className="bg-surface py-24 md:py-36">
-      <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <SectionHeading eyebrow="Featured Events" title="Recent productions" />
-
-        <Carousel opts={{ align: "start", loop: true }} className="mt-16 md:mt-24">
-          <CarouselContent className="-ml-5">
-            {featured.map((f) => (
-              <CarouselItem key={f.title} className="pl-5 sm:basis-3/4 lg:basis-1/2">
-                <article className="group relative overflow-hidden rounded-xl border border-border">
-                  <div className="aspect-4/3 overflow-hidden">
-                    <img
-                      src={f.image}
-                      alt={`${f.title}, ${f.place}`}
-                      loading="lazy"
-                      className="size-full object-cover transition-transform duration-[1.4s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/25 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-8">
-                    <div>
-                      <h3 className="text-3xl text-ivory">{f.title}</h3>
-                      <p className="mt-2 text-[0.68rem] tracking-[0.26em] text-muted-foreground uppercase">
-                        {f.place}
-                      </p>
-                    </div>
-                    <ArrowUpRight className="size-5 shrink-0 text-gold transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1" />
-                  </div>
-                </article>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="mt-10 flex justify-end gap-3">
-            <CarouselPrevious className="static size-12 translate-y-0 rounded-none border-border bg-transparent text-ivory hover:border-gold hover:bg-gold/10 hover:text-gold" />
-            <CarouselNext className="static size-12 translate-y-0 rounded-none border-border bg-transparent text-ivory hover:border-gold hover:bg-gold/10 hover:text-gold" />
-          </div>
-        </Carousel>
-      </div>
-    </section>
-  );
-}
-
 function TrustedBy() {
   return (
     <section className="border-y border-border bg-background py-14">
@@ -401,7 +368,7 @@ function Testimonials() {
   return (
     <section className="relative overflow-hidden bg-section py-24 md:py-36">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <SectionHeading eyebrow="Clients" title="In their words" align="center" />
+        <SectionHeading eyebrow="Clients" title="In their words" />
 
         <div className="relative mx-auto mt-16 max-w-3xl md:mt-24">
           <motion.div
