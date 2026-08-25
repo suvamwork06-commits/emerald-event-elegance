@@ -301,7 +301,6 @@ function Timeline() {
         <SectionHeading
           eyebrow="The Experience"
           title="Six movements from first call to last dance"
-          align="center"
         />
 
         <ol className="relative mx-auto mt-20 max-w-3xl md:mt-28">
@@ -401,7 +400,7 @@ function Testimonials() {
   return (
     <section className="relative overflow-hidden bg-section py-24 md:py-36">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
-        <SectionHeading eyebrow="Clients" title="In their words" align="center" />
+        <SectionHeading eyebrow="Clients" title="In their words" />
 
         <div className="relative mx-auto mt-16 max-w-3xl md:mt-24">
           <motion.div
