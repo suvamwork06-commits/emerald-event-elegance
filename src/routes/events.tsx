@@ -305,10 +305,17 @@ function Timeline() {
         />
 
         <ol className="relative mx-auto mt-20 max-w-3xl md:mt-28">
-          <div className="absolute top-0 bottom-0 left-6 w-px bg-border md:left-1/2" />
+          <div className="absolute top-0 bottom-0 left-6 hidden w-px bg-border md:left-1/2 md:block" />
           {timeline.map((t, i) => (
-            <li key={t.title} className="relative pb-14 pl-20 md:pb-20 md:pl-0">
-              <Reveal delay={0.05}>
+            <li key={t.title} className="relative flex gap-5 pb-14 md:block md:pb-20">
+              <Reveal delay={0.05} className="contents">
+                <div className="relative flex flex-col items-center md:hidden">
+                  <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-gold/45 bg-background font-display text-sm text-gold">
+                    {t.step}
+                  </span>
+                  <div className="mt-4 w-px flex-1 bg-border" />
+                </div>
+
                 <div
                   className={
                     i % 2 === 0
@@ -322,7 +329,8 @@ function Timeline() {
                     {t.text}
                   </p>
                 </div>
-                <span className="absolute top-1 left-6 flex size-11 -translate-x-1/2 items-center justify-center rounded-full border border-gold/45 bg-background font-display text-sm text-gold md:left-1/2">
+
+                <span className="absolute top-1 left-6 hidden size-11 -translate-x-1/2 items-center justify-center rounded-full border border-gold/45 bg-background font-display text-sm text-gold md:left-1/2 md:flex">
                   {t.step}
                 </span>
               </Reveal>
