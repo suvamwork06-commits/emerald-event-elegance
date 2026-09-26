@@ -350,7 +350,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                     >
                       Back
                     </button>
-                    {step < 3 ? (
+                    {step < 2 ? (
                       <LuxeButton type="button" onClick={next}>
                         Continue
                       </LuxeButton>
@@ -359,6 +359,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                         {sending ? "Sending…" : "Submit Enquiry"}
                       </LuxeButton>
                     )}
+
                   </div>
 
                 </form>
