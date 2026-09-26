@@ -14,6 +14,8 @@ import { z } from "zod";
 import { Check, X, AlertCircle } from "lucide-react";
 import { LuxeButton } from "./LuxeButton";
 import { submitEnquiry } from "@/lib/enquiries.functions";
+import { brand } from "@/lib/content";
+
 
 
 const schema = z.object({
@@ -82,6 +84,8 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
   const [done, setDone] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+
   const submit = useServerFn(submitEnquiry);
 
   const form = useForm<QuoteValues>({
@@ -108,8 +112,10 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
       setStep(0);
       setDone(false);
       setError(null);
+      setWhatsappUrl(null);
       reset();
     }, 500);
+
   };
 
   const next = async () => {
@@ -117,9 +123,28 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
     if (valid) setStep((s) => Math.min(3, s + 1));
   };
 
+  const buildWhatsappUrl = (values: QuoteValues) => {
+    const lines = [
+      "New consultation enquiry — Maison Aurelle",
+      "",
+      `Name: ${values.name}`,
+      `Email: ${values.email}`,
+      `Phone: ${values.phone}`,
+      `Experience: ${values.eventType}`,
+      `Approximate date: ${values.date || "—"}`,
+      `Guests: ${values.guests || "—"}`,
+      `City or venue: ${values.city}`,
+      `Investment range: ${values.budget || "—"}`,
+      `Notes: ${values.notes?.trim() ? values.notes.trim() : "—"}`,
+    ];
+    return `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
+  };
+
   const onSubmit = async (values: QuoteValues) => {
     setSending(true);
     setError(null);
+    // Open the tab synchronously-ish before awaiting so popup blockers stay calm
+    const waUrl = buildWhatsappUrl(values);
     try {
       await submit({
         data: {
@@ -134,13 +159,16 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
           notes: values.notes || null,
         },
       });
+      setWhatsappUrl(waUrl);
       setDone(true);
+      window.open(waUrl, "_blank", "noopener,noreferrer");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not send your enquiry. Please try again.");
     } finally {
       setSending(false);
     }
   };
+
 
 
   const values = getValues();
@@ -185,13 +213,24 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                 </motion.div>
                 <h3 className="mt-8 text-4xl text-ivory">Thank you</h3>
                 <p className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                  Your enquiry is with our concierge. A planner will write to you
-                  within one working day to arrange your private consultation.
+                  Your details are with our concierge, and WhatsApp should now be
+                  open with your enquiry ready to send.
                 </p>
-                <LuxeButton variant="outline" className="mt-9" onClick={close}>
-                  Close
-                </LuxeButton>
+                <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+                  {whatsappUrl ? (
+                    <LuxeButton
+                      onClick={() => window.open(whatsappUrl, "_blank", "noopener,noreferrer")}
+                    >
+                      Continue on WhatsApp
+                    </LuxeButton>
+                  ) : null}
+
+                  <LuxeButton variant="outline" onClick={close}>
+                    Close
+                  </LuxeButton>
+                </div>
               </div>
+
             ) : (
               <>
                 <p className="eyebrow">Step {step + 1} of 4</p>
