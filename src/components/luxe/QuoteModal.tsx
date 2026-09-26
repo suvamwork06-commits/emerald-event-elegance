@@ -39,7 +39,7 @@ const STEP_FIELDS: (keyof QuoteValues)[][] = [
   [],
 ];
 
-const STEPS = ["Personal Details", "Event Details", "Investment", "Confirmation"];
+const STEPS = ["Personal Details", "Event Details", "Investment"];
 
 const EVENT_TYPES = [
   "Luxury Wedding",
