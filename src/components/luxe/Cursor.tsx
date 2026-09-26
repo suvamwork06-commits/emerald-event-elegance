@@ -35,7 +35,7 @@ export function Cursor() {
   if (!enabled) return null;
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[100] hidden md:block">
+    <div aria-hidden className="pointer-events-none fixed inset-0 z-[200] hidden md:block">
       <motion.div
         style={{ x: sx, y: sy }}
         className="absolute -translate-x-1/2 -translate-y-1/2"
