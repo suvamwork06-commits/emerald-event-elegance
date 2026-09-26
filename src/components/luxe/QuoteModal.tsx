@@ -120,7 +120,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
 
   const next = async () => {
     const valid = await trigger(STEP_FIELDS[step]);
-    if (valid) setStep((s) => Math.min(3, s + 1));
+    if (valid) setStep((s) => Math.min(2, s + 1));
   };
 
   const buildWhatsappUrl = (values: QuoteValues) => {
