@@ -84,6 +84,8 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
   const [done, setDone] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+
   const submit = useServerFn(submitEnquiry);
 
   const form = useForm<QuoteValues>({
