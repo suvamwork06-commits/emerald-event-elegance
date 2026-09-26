@@ -117,9 +117,28 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
     if (valid) setStep((s) => Math.min(3, s + 1));
   };
 
+  const buildWhatsappUrl = (values: QuoteValues) => {
+    const lines = [
+      "New consultation enquiry — Maison Aurelle",
+      "",
+      `Name: ${values.name}`,
+      `Email: ${values.email}`,
+      `Phone: ${values.phone}`,
+      `Experience: ${values.eventType}`,
+      `Approximate date: ${values.date || "—"}`,
+      `Guests: ${values.guests || "—"}`,
+      `City or venue: ${values.city}`,
+      `Investment range: ${values.budget || "—"}`,
+      `Notes: ${values.notes?.trim() ? values.notes.trim() : "—"}`,
+    ];
+    return `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
+  };
+
   const onSubmit = async (values: QuoteValues) => {
     setSending(true);
     setError(null);
+    // Open the tab synchronously-ish before awaiting so popup blockers stay calm
+    const waUrl = buildWhatsappUrl(values);
     try {
       await submit({
         data: {
@@ -134,13 +153,16 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
           notes: values.notes || null,
         },
       });
+      setWhatsappUrl(waUrl);
       setDone(true);
+      window.open(waUrl, "_blank", "noopener,noreferrer");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Could not send your enquiry. Please try again.");
     } finally {
       setSending(false);
     }
   };
+
 
 
   const values = getValues();
