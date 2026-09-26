@@ -213,13 +213,23 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                 </motion.div>
                 <h3 className="mt-8 text-4xl text-ivory">Thank you</h3>
                 <p className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                  Your enquiry is with our concierge. A planner will write to you
-                  within one working day to arrange your private consultation.
+                  Your details are with our concierge, and WhatsApp should now be
+                  open with your enquiry ready to send.
                 </p>
-                <LuxeButton variant="outline" className="mt-9" onClick={close}>
-                  Close
-                </LuxeButton>
+                <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
+                  {whatsappUrl ? (
+                    <LuxeButton asChild>
+                      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                        Continue on WhatsApp
+                      </a>
+                    </LuxeButton>
+                  ) : null}
+                  <LuxeButton variant="outline" onClick={close}>
+                    Close
+                  </LuxeButton>
+                </div>
               </div>
+
             ) : (
               <>
                 <p className="eyebrow">Step {step + 1} of 4</p>
