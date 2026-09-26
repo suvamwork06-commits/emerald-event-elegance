@@ -112,8 +112,10 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
       setStep(0);
       setDone(false);
       setError(null);
+      setWhatsappUrl(null);
       reset();
     }, 500);
+
   };
 
   const next = async () => {
