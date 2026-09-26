@@ -39,7 +39,7 @@ const STEP_FIELDS: (keyof QuoteValues)[][] = [
   [],
 ];
 
-const STEPS = ["Personal Details", "Event Details", "Investment", "Confirmation"];
+const STEPS = ["Personal Details", "Event Details", "Investment"];
 
 const EVENT_TYPES = [
   "Luxury Wedding",
@@ -120,7 +120,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
 
   const next = async () => {
     const valid = await trigger(STEP_FIELDS[step]);
-    if (valid) setStep((s) => Math.min(3, s + 1));
+    if (valid) setStep((s) => Math.min(2, s + 1));
   };
 
   const buildWhatsappUrl = (values: QuoteValues) => {
@@ -233,7 +233,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
 
             ) : (
               <>
-                <p className="eyebrow">Step {step + 1} of 4</p>
+                <p className="eyebrow">Step {step + 1} of 3</p>
                 <h3 className="mt-4 text-4xl text-ivory">{STEPS[step]}</h3>
 
                 <div className="mt-7 flex gap-2" aria-hidden>
@@ -314,25 +314,6 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                     </div>
                   ) : null}
 
-                  {step === 3 ? (
-                    <dl className="divide-y divide-border/60 border-y border-border/60">
-                      {[
-                        ["Name", values.name],
-                        ["Email", values.email],
-                        ["Phone", values.phone],
-                        ["Experience", values.eventType],
-                        ["Date", values.date],
-                        ["Guests", values.guests],
-                        ["Location", values.city],
-                        ["Investment", values.budget],
-                      ].map(([k, v]) => (
-                        <div key={k} className="flex justify-between gap-6 py-3 text-sm">
-                          <dt className="text-muted-foreground">{k}</dt>
-                          <dd className="text-right text-ivory">{v || "—"}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  ) : null}
 
                   {error ? (
                     <div className="mt-8 flex items-center gap-2 rounded border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
@@ -350,7 +331,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                     >
                       Back
                     </button>
-                    {step < 3 ? (
+                    {step < 2 ? (
                       <LuxeButton type="button" onClick={next}>
                         Continue
                       </LuxeButton>
@@ -359,6 +340,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                         {sending ? "Sending…" : "Submit Enquiry"}
                       </LuxeButton>
                     )}
+
                   </div>
 
                 </form>
