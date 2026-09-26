@@ -218,12 +218,13 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                 </p>
                 <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
                   {whatsappUrl ? (
-                    <LuxeButton asChild>
-                      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                        Continue on WhatsApp
-                      </a>
+                    <LuxeButton
+                      onClick={() => window.open(whatsappUrl, "_blank", "noopener,noreferrer")}
+                    >
+                      Continue on WhatsApp
                     </LuxeButton>
                   ) : null}
+
                   <LuxeButton variant="outline" onClick={close}>
                     Close
                   </LuxeButton>
