@@ -14,6 +14,8 @@ import { z } from "zod";
 import { Check, X, AlertCircle } from "lucide-react";
 import { LuxeButton } from "./LuxeButton";
 import { submitEnquiry } from "@/lib/enquiries.functions";
+import { brand } from "@/lib/content";
+
 
 
 const schema = z.object({
