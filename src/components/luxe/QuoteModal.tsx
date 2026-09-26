@@ -314,25 +314,6 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
                     </div>
                   ) : null}
 
-                  {step === 3 ? (
-                    <dl className="divide-y divide-border/60 border-y border-border/60">
-                      {[
-                        ["Name", values.name],
-                        ["Email", values.email],
-                        ["Phone", values.phone],
-                        ["Experience", values.eventType],
-                        ["Date", values.date],
-                        ["Guests", values.guests],
-                        ["Location", values.city],
-                        ["Investment", values.budget],
-                      ].map(([k, v]) => (
-                        <div key={k} className="flex justify-between gap-6 py-3 text-sm">
-                          <dt className="text-muted-foreground">{k}</dt>
-                          <dd className="text-right text-ivory">{v || "—"}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  ) : null}
 
                   {error ? (
                     <div className="mt-8 flex items-center gap-2 rounded border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">
