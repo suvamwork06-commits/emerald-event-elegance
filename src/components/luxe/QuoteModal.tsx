@@ -233,7 +233,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
 
             ) : (
               <>
-                <p className="eyebrow">Step {step + 1} of 4</p>
+                <p className="eyebrow">Step {step + 1} of 3</p>
                 <h3 className="mt-4 text-4xl text-ivory">{STEPS[step]}</h3>
 
                 <div className="mt-7 flex gap-2" aria-hidden>
