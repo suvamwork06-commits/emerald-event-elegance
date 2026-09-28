@@ -1,14 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { Lock } from "lucide-react";
 import { brand } from "@/lib/content";
 import { LuxeButton } from "./LuxeButton";
 import { submitNewsletter } from "@/lib/newsletter.functions";
+import { useAuthUser } from "@/hooks/use-auth-user";
 
 export function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const { user } = useAuthUser();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
