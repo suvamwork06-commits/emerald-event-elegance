@@ -1,14 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { Lock } from "lucide-react";
 import { brand } from "@/lib/content";
 import { LuxeButton } from "./LuxeButton";
 import { submitNewsletter } from "@/lib/newsletter.functions";
+import { useAuthUser } from "@/hooks/use-auth-user";
 
 export function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const { user } = useAuthUser();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -127,7 +131,20 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>
-          <p>{brand.tagline}</p>
+          <div className="flex items-center gap-4">
+            <p>{brand.tagline}</p>
+            {user ? (
+              <Link
+                to="/admin/enquiries"
+                aria-label="Admin portal"
+                title="Admin portal"
+                className="text-gold/60 transition-colors hover:text-gold"
+              >
+                <Lock className="size-3.5" />
+              </Link>
+            ) : null}
+          </div>
+
         </div>
       </div>
     </footer>
