@@ -131,7 +131,20 @@ export function Footer() {
           <p>
             © {new Date().getFullYear()} {brand.name}. All rights reserved.
           </p>
-          <p>{brand.tagline}</p>
+          <div className="flex items-center gap-4">
+            <p>{brand.tagline}</p>
+            {user ? (
+              <Link
+                to="/admin/enquiries"
+                aria-label="Admin portal"
+                title="Admin portal"
+                className="text-gold/60 transition-colors hover:text-gold"
+              >
+                <Lock className="size-3.5" />
+              </Link>
+            ) : null}
+          </div>
+
         </div>
       </div>
     </footer>
