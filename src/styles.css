@@ -24,6 +24,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-logo-surface: var(--logo-surface);
   --color-section: var(--section);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -49,6 +50,7 @@
 }
 
 :root {
+  --logo-surface: oklch(1 0 0);
   --radius: 0.25rem;
 
   /* #081A16 */
