@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteChrome } from "@/components/luxe/SiteChrome";
 import { brand } from "@/lib/content";
+import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -159,6 +160,8 @@ function RootComponent() {
       <SiteChrome>
         <Outlet />
       </SiteChrome>
+      <Toaster />
+
     </QueryClientProvider>
   );
 }
