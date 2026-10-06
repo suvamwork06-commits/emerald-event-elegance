@@ -5,8 +5,6 @@ import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { queryOptions } from "@tanstack/react-query";
 import { getEnquiries, updateEnquiry } from "@/lib/enquiries.functions";
-import { getSubscribers } from "@/lib/newsletter.functions";
-import { LuxeButton } from "@/components/luxe/LuxeButton";
 import { ArrowLeft, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { brand } from "@/lib/content";
@@ -16,34 +14,22 @@ const enquiriesQueryOptions = queryOptions({
   queryFn: () => getEnquiries(),
 });
 
-const subscribersQueryOptions = queryOptions({
-  queryKey: ["subscribers"],
-  queryFn: () => getSubscribers(),
-});
-
 export const Route = createFileRoute("/_authenticated/admin/enquiries")({
   component: EnquiriesPage,
   loader: ({ context }) =>
-    Promise.all([
-      context.queryClient.ensureQueryData(enquiriesQueryOptions),
-      context.queryClient.ensureQueryData(subscribersQueryOptions),
-    ]),
+    context.queryClient.ensureQueryData(enquiriesQueryOptions),
   head: () => ({
     meta: [
       { title: "Enquiries Admin — Maison Aurelle" },
-      { name: "description", content: "Manage consultation enquiries and newsletter subscribers for Maison Aurelle." },
+      { name: "description", content: "Manage consultation enquiries for Maison Aurelle." },
     ],
   }),
 });
 
 const statusOptions = ["new", "contacted", "qualified", "booked", "archived"] as const;
 
-type Tab = "enquiries" | "subscribers";
-
 function EnquiriesPage() {
-  const [tab, setTab] = useState<Tab>("enquiries");
   const { data: enquiries } = useSuspenseQuery(enquiriesQueryOptions);
-  const { data: subscribers } = useSuspenseQuery(subscribersQueryOptions);
   const updateStatus = useServerFn(updateEnquiry);
   const queryClient = useQueryClient();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
@@ -73,7 +59,7 @@ function EnquiriesPage() {
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="eyebrow">Concierge Admin</p>
-            <h1 className="mt-4 text-4xl text-ivory">Leads & Subscribers</h1>
+            <h1 className="mt-4 text-4xl text-ivory">Enquiries</h1>
           </div>
           <div className="flex items-center gap-4">
             <Link
@@ -93,28 +79,7 @@ function EnquiriesPage() {
           </div>
         </div>
 
-        <div className="mb-8 flex gap-2 border-b border-border">
-          {[
-            { id: "enquiries", label: `Enquiries (${enquiries.length})` },
-            { id: "subscribers", label: `Newsletter (${subscribers.length})` },
-          ].map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id as Tab)}
-              className={`px-4 py-3 font-sans text-[0.7rem] tracking-[0.26em] uppercase transition-colors ${
-                tab === t.id ? "border-b border-gold text-ivory" : "text-muted-foreground hover:text-ivory"
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
-
-        {tab === "enquiries" ? (
-          <EnquiriesTable enquiries={enquiries} updatingId={updatingId} onStatusChange={handleStatusChange} />
-        ) : (
-          <SubscribersTable subscribers={subscribers} />
-        )}
+        <EnquiriesTable enquiries={enquiries} updatingId={updatingId} onStatusChange={handleStatusChange} />
 
         <div className="mt-12 text-center text-xs text-muted-foreground">
           <p>
@@ -214,57 +179,6 @@ function EnquiriesTable({
                       minute: "2-digit",
                     })}
                   </p>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-function SubscribersTable({
-  subscribers,
-}: {
-  subscribers: Awaited<ReturnType<typeof getSubscribers>>;
-}) {
-  if (subscribers.length === 0) {
-    return (
-      <div className="clay-card rounded-2xl p-12 text-center">
-        <p className="text-muted-foreground">No subscribers yet.</p>
-        <p className="mt-2 text-sm text-muted-foreground/70">
-          Newsletter signups from the footer will appear here.
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <div className="overflow-hidden rounded-2xl border border-border">
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[600px] border-collapse text-left">
-          <thead>
-            <tr className="border-b border-border bg-surface">
-              <th className="px-5 py-4 font-sans text-[0.65rem] tracking-[0.26em] text-muted-foreground uppercase">Email</th>
-              <th className="px-5 py-4 font-sans text-[0.65rem] tracking-[0.26em] text-muted-foreground uppercase">Joined</th>
-            </tr>
-          </thead>
-          <tbody>
-            {subscribers.map((subscriber) => (
-              <tr key={subscriber.id} className="border-b border-border/60 transition-colors hover:bg-surface/40">
-                <td className="px-5 py-4 text-sm text-ivory">{subscriber.email}</td>
-                <td className="px-5 py-4 text-sm text-ivory">
-                  {new Date(subscriber.created_at).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
-                  {" "}
-                  {new Date(subscriber.created_at).toLocaleTimeString("en-IN", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
                 </td>
               </tr>
             ))}
