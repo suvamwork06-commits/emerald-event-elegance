@@ -23,6 +23,13 @@ import menuLive from "@/assets/menu-live.jpg";
 import menuDessert from "@/assets/menu-dessert.jpg";
 import menuMocktail from "@/assets/menu-mocktail.jpg";
 import ctaFloral from "@/assets/cta-floral.jpg";
+import ambientLogo from "@/assets/ambient-logo.png.asset.json";
+import appetiteLogo from "@/assets/appetite-logo.png.asset.json";
+
+export const serviceBrands = {
+  events: { name: "Ambient Events", logo: ambientLogo.url },
+  catering: { name: "Appetite", logo: appetiteLogo.url },
+};
 
 export const images = {
   heroWedding,

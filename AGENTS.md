@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep service identities centralized in the shared content library and display their CDN-hosted supplied artwork through ServiceLogo, so each page uses the correct business identity.
