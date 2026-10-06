@@ -1,34 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { Lock } from "lucide-react";
 import { brand } from "@/lib/content";
-import { LuxeButton } from "./LuxeButton";
-import { submitNewsletter } from "@/lib/newsletter.functions";
 import { useAuthUser } from "@/hooks/use-auth-user";
 
 export function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
   const { user } = useAuthUser();
-
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage(null);
-    try {
-      const result = await submitNewsletter({ data: { email } });
-      setSubscribed(true);
-      setEmail("");
-      setMessage(result.alreadySubscribed ? "You're already on the list." : "Thank you — welcome to the atelier.");
-    } catch (err) {
-      setMessage("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <footer className="grain border-t border-border bg-surface">
@@ -42,29 +18,6 @@ export function Footer() {
               A luxury event atelier producing weddings, galas and private
               celebrations for families and houses who expect quiet perfection.
             </p>
-
-            <form className="mt-10 max-w-sm" onSubmit={handleSubmit}>
-              <label className="eyebrow mb-4 block" htmlFor="newsletter">
-                The Atelier Letter
-              </label>
-              <div className="flex gap-3">
-                <input
-                  id="newsletter"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@email.com"
-                  className="h-12 flex-1 border border-input bg-background/40 px-4 text-sm text-ivory outline-none transition-colors placeholder:text-muted-foreground/60 focus:border-gold"
-                />
-                <LuxeButton size="sm" type="submit" disabled={loading}>
-                  {loading ? "Joining…" : "Join"}
-                </LuxeButton>
-              </div>
-              {message ? (
-                <p className="mt-3 text-xs text-gold">{message}</p>
-              ) : null}
-            </form>
           </div>
 
           <div>
