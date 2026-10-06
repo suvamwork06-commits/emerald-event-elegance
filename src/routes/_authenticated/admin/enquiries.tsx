@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { useServerFn } from "@tanstack/react-start";
 import { queryOptions } from "@tanstack/react-query";
 import { getEnquiries, updateEnquiry } from "@/lib/enquiries.functions";
@@ -44,14 +45,25 @@ function EnquiriesPage() {
   const { data: enquiries } = useSuspenseQuery(enquiriesQueryOptions);
   const { data: subscribers } = useSuspenseQuery(subscribersQueryOptions);
   const updateStatus = useServerFn(updateEnquiry);
+  const queryClient = useQueryClient();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   const handleStatusChange = async (id: string, status: (typeof statusOptions)[number]) => {
     setUpdatingId(id);
+    const previous = queryClient.getQueryData(enquiriesQueryOptions.queryKey);
+    queryClient.setQueryData(enquiriesQueryOptions.queryKey, (old) =>
+      old?.map((e) => (e.id === id ? { ...e, status } : e)),
+    );
     try {
       await updateStatus({ data: { id, status } });
+      toast.success(`Status updated to ${status.charAt(0).toUpperCase() + status.slice(1)}`);
+    } catch (err) {
+      queryClient.setQueryData(enquiriesQueryOptions.queryKey, previous);
+      toast.error("Could not update status. Please try again.");
+      console.error(err);
     } finally {
       setUpdatingId(null);
+      queryClient.invalidateQueries({ queryKey: enquiriesQueryOptions.queryKey });
     }
   };
 
