@@ -7,6 +7,7 @@ import { LuxeButton, LuxeLink } from "@/components/luxe/LuxeButton";
 import { Counter } from "@/components/luxe/Counter";
 import { Marquee } from "@/components/luxe/Marquee";
 import { useQuote } from "@/components/luxe/QuoteModal";
+import { ServiceLogo } from "@/components/luxe/ServiceLogo";
 import { brand, images, stats, trustedBy } from "@/lib/content";
 
 const TITLE = "Maison Aurelle — Luxury Event Management & Premium Catering";
@@ -124,14 +125,16 @@ function Hero() {
 const choices = [
   {
     to: "/events",
-    label: "Luxury Events",
+    service: "events",
+    label: "Ambient Events",
     copy: "Weddings, galas and private celebrations produced end to end by a single atelier team.",
     image: images.cardEvents,
     index: "01",
   },
   {
     to: "/catering",
-    label: "Luxury Catering",
+    service: "catering",
+    label: "Appetite",
     copy: "Chef-led menus, live counters and silver-service brigades trained to five-star standards.",
     image: images.cardCatering,
     index: "02",
@@ -165,12 +168,14 @@ function Concierge() {
 
 function ChoiceCard({
   to,
+  service,
   label,
   copy,
   image,
   index,
 }: {
   to: "/events" | "/catering";
+  service: "events" | "catering";
   label: string;
   copy: string;
   image: string;
@@ -211,6 +216,7 @@ function ChoiceCard({
       <div className="absolute inset-x-0 bottom-0 p-7 md:p-11">
         <div className="flex items-end justify-between gap-6">
           <div>
+            <ServiceLogo service={service} className="mb-5 h-14 w-40" />
             <p className="eyebrow">{index}</p>
             <h3 className="mt-4 text-[clamp(2rem,3.4vw,3rem)] leading-tight text-ivory">
               {label}

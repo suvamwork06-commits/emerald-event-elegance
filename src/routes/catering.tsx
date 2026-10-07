@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/luxe/SectionHeading";
 import { LuxeButton } from "@/components/luxe/LuxeButton";
 import { Lightbox } from "@/components/luxe/Lightbox";
 import { useQuote } from "@/components/luxe/QuoteModal";
+import { ServiceLogo } from "@/components/luxe/ServiceLogo";
 import {
   brand,
   cateringPillars,
@@ -84,7 +85,8 @@ function CateringHero() {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-background/45" />
       <div className="relative mx-auto w-full max-w-[1400px] px-6 pb-20 md:px-10 md:pb-28">
         <Reveal>
-          <p className="eyebrow">Premium Catering</p>
+          <ServiceLogo service="catering" className="mb-8" />
+          <p className="eyebrow">Appetite — Premium Catering</p>
         </Reveal>
         <h1 className="mt-7 max-w-4xl text-[clamp(2.6rem,7.6vw,6.25rem)] leading-[0.95] text-ivory">
           <RevealLines text="A menu written for your guests" />
