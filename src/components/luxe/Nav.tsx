@@ -38,12 +38,12 @@ export function Nav() {
       )}
     >
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 md:px-10">
-        <Link to="/" className="group flex items-baseline gap-3" aria-label={brand.name}>
+        <Link to="/" className="group flex items-baseline gap-3" aria-label="Appetite Events">
           <span className="flex size-9 items-center justify-center border border-gold/40 font-display text-sm text-gold transition-colors group-hover:border-gold">
             {brand.monogram}
           </span>
           <span className="font-display text-xl tracking-[0.14em] text-ivory">
-            {brand.name.toUpperCase()}
+            APPETITE EVENTS
           </span>
         </Link>
 
