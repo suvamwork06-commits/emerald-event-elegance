@@ -38,11 +38,12 @@ export function Nav() {
       )}
     >
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 md:px-10">
-        <Link to="/" className="group flex min-w-0 shrink items-center gap-3" aria-label="Appetite Events">
-          <img src={appetiteLogo} alt="Appetite logo" className="h-9 w-auto shrink-0 object-contain md:h-11" />
-          <span className="truncate font-[Outfit,sans-serif] font-semibold text-base tracking-[0.18em] whitespace-nowrap text-ivory sm:text-lg md:text-xl">
-            APPETITE EVENTS
-          </span>
+        <Link to="/" className="group flex shrink-0 items-center" aria-label="Appetite Events — Home">
+          <img
+            src={appetiteLogo}
+            alt="Appetite Events logo"
+            className="h-11 w-auto object-contain transition-opacity group-hover:opacity-85 md:h-14"
+          />
         </Link>
 
         <div className="hidden items-center gap-10 md:flex">
