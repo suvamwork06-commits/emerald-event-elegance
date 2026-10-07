@@ -9,6 +9,7 @@ import { Counter } from "@/components/luxe/Counter";
 import { Marquee } from "@/components/luxe/Marquee";
 import { Lightbox } from "@/components/luxe/Lightbox";
 import { useQuote } from "@/components/luxe/QuoteModal";
+import { ServiceLogo } from "@/components/luxe/ServiceLogo";
 import {
   Carousel,
   CarouselContent,
@@ -108,7 +109,8 @@ function EventsHero() {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
       <div className="relative mx-auto w-full max-w-[1400px] px-6 pb-20 md:px-10 md:pb-28">
         <Reveal>
-          <p className="eyebrow">Luxury Event Management</p>
+          <ServiceLogo service="events" className="mb-8" />
+          <p className="eyebrow">Ambient Events — Luxury Event Management</p>
         </Reveal>
         <h1 className="mt-7 max-w-4xl text-[clamp(2.6rem,7.4vw,6rem)] leading-[0.96] text-ivory">
           <RevealLines text="Celebrations composed, never assembled" />
