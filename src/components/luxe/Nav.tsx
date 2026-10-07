@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { ServiceLogo } from "./ServiceLogo";
+import appetiteLogo from "@/assets/appetite-logo-transparent.png";
 import { useQuote } from "./QuoteModal";
 import { LuxeButton } from "./LuxeButton";
 import { cn } from "@/lib/utils";
@@ -39,7 +39,7 @@ export function Nav() {
     >
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 md:px-10">
         <Link to="/" className="group flex min-w-0 shrink items-center gap-3" aria-label="Appetite Events">
-          <ServiceLogo service="catering" className="h-10 w-16 shrink-0 p-1 md:h-11 md:w-20" />
+          <img src={appetiteLogo} alt="Appetite logo" className="h-9 w-auto shrink-0 object-contain md:h-11" />
           <span className="truncate font-display text-base tracking-[0.12em] whitespace-nowrap text-ivory sm:text-lg md:text-xl">
             APPETITE EVENTS
           </span>
