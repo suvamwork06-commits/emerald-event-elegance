@@ -217,8 +217,7 @@ function ChoiceCard({
         <div className="flex items-end justify-between gap-6">
           <div>
             <ServiceLogo service={service} className="mb-5 h-14 w-40" />
-            <p className="eyebrow">{index}</p>
-            <h3 className="mt-4 text-[clamp(2rem,3.4vw,3rem)] leading-tight text-ivory">
+            <h3 className="mt-4 text-[clamp(2rem,3.4vw,3rem)] leading-tight text-ivory" data-index={index}>
               {label}
             </h3>
             <p className="mt-4 max-w-sm text-sm leading-[1.85] text-muted-foreground">
