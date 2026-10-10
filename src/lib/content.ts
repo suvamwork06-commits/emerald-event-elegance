@@ -31,6 +31,11 @@ export const serviceBrands = {
   catering: { name: "Appetite", logo: appetiteLogo.url },
 };
 
+export const serviceContacts = {
+  events: { name: "Ambient", emails: ["ambtsales@gmail.com"] },
+  catering: { name: "Appetite", emails: ["info@appetiteevent.com", "subhra@appetiteevent.com"] },
+};
+
 export const images = {
   heroWedding,
   cardEvents,
@@ -43,13 +48,13 @@ export const images = {
 };
 
 export const brand = {
-  name: "Maison Aurelle",
-  monogram: "MA",
+  name: "Ambient & Appetite",
+  monogram: "A&A",
   tagline: "Luxury Event Atelier",
   phone: "+91 98300 00000",
   phoneHref: "tel:+919830000000",
   whatsapp: "919830000000",
-  email: "concierge@maisonaurelle.com",
+  email: "info@appetiteevent.com",
   address: "The Atelier, 21 Camac Street, Kolkata 700016, India",
   hours: [
     { day: "Monday — Friday", time: "10:00 — 19:00" },
@@ -58,9 +63,7 @@ export const brand = {
   ],
   socials: [
     { label: "Instagram", href: "https://instagram.com" },
-    { label: "Pinterest", href: "https://pinterest.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "YouTube", href: "https://youtube.com" },
+    { label: "Facebook", href: "https://facebook.com" },
   ],
   mapEmbed:
     "https://www.google.com/maps?q=Camac%20Street%2C%20Kolkata&output=embed",

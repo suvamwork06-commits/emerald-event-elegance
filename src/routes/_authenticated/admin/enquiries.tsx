@@ -20,8 +20,8 @@ export const Route = createFileRoute("/_authenticated/admin/enquiries")({
     context.queryClient.ensureQueryData(enquiriesQueryOptions),
   head: () => ({
     meta: [
-      { title: "Enquiries Admin — Maison Aurelle" },
-      { name: "description", content: "Manage consultation enquiries for Maison Aurelle." },
+      { title: "Enquiries Admin — Ambient & Appetite" },
+      { name: "description", content: "Manage consultation enquiries for Ambient & Appetite." },
     ],
   }),
 });
@@ -84,8 +84,8 @@ function EnquiriesPage() {
         <div className="mt-12 text-center text-xs text-muted-foreground">
           <p>
             Signed in as {brand.name} admin. Need help? Email{" "}
-            <a href="mailto:concierge@maisonaurelle.com" className="text-gold underline underline-offset-4">
-              concierge@maisonaurelle.com
+            <a href="mailto:info@appetiteevent.com" className="text-gold underline underline-offset-4">
+              info@appetiteevent.com
             </a>
             .
           </p>

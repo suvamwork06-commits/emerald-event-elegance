@@ -156,7 +156,7 @@ const Email = (props: Props) => {
               paddingTop: "18px",
             }}
           >
-            Maison Aurelle — Luxury Event Atelier
+            Ambient & Appetite — Luxury Event Atelier
             <br />
             Review this enquiry in your admin dashboard.
           </Text>

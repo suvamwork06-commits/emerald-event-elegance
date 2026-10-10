@@ -15,9 +15,10 @@ import {
   foodGallery,
   images,
   menu,
+  serviceContacts,
 } from "@/lib/content";
 
-const TITLE = "Luxury Catering — Maison Aurelle";
+const TITLE = "Luxury Catering — Appetite";
 const DESCRIPTION =
   "Chef-led luxury catering: wedding buffets, Royal Bengali, continental and Italian menus, live counters, patisserie and a dedicated bar programme.";
 
@@ -38,7 +39,7 @@ export const Route = createFileRoute("/catering")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FoodService",
-          name: `${brand.name} Catering`,
+          name: "Appetite",
           description: DESCRIPTION,
           telephone: brand.phone,
           email: brand.email,
@@ -286,9 +287,11 @@ function Contact() {
             <a href={brand.phoneHref} className="flex items-center gap-4 hover:text-ivory">
               <Phone className="size-4 text-gold" /> {brand.phone}
             </a>
-            <a href={`mailto:${brand.email}`} className="flex items-center gap-4 hover:text-ivory">
-              <Mail className="size-4 text-gold" /> {brand.email}
-            </a>
+            {serviceContacts.catering.emails.map((e) => (
+              <a key={e} href={`mailto:${e}`} className="flex items-center gap-4 hover:text-ivory">
+                <Mail className="size-4 text-gold" /> {e}
+              </a>
+            ))}
             <p className="flex items-start gap-4">
               <MapPin className="mt-1 size-4 shrink-0 text-gold" /> {brand.address}
             </p>
@@ -322,7 +325,7 @@ function Contact() {
         <Reveal delay={0.15}>
           <div className="overflow-hidden rounded-xl border border-border">
             <iframe
-              title="Maison Aurelle atelier location"
+              title="Appetite location"
               src={brand.mapEmbed}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

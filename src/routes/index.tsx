@@ -10,7 +10,7 @@ import { useQuote } from "@/components/luxe/QuoteModal";
 import { ServiceLogo } from "@/components/luxe/ServiceLogo";
 import { brand, images, stats, trustedBy } from "@/lib/content";
 
-const TITLE = "Maison Aurelle — Luxury Event Management & Premium Catering";
+const TITLE = "Ambient & Appetite — Luxury Event Management & Premium Catering";
 const DESCRIPTION =
   "A luxury event atelier crafting timeless weddings, galas and private celebrations — and chef-led premium catering. Tell us which experience you would like us to create.";
 
@@ -70,7 +70,7 @@ function Hero() {
       <motion.img
         style={{ y: imageY }}
         src={images.heroWedding}
-        alt="Candlelit luxury wedding banquet designed by Maison Aurelle"
+        alt="Candlelit luxury wedding banquet designed by Ambient & Appetite"
         width={1920}
         height={1088}
         className="absolute inset-0 size-full scale-110 object-cover"

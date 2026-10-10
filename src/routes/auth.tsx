@@ -8,8 +8,8 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Admin Sign In — Maison Aurelle" },
-      { name: "description", content: "Private access for the Maison Aurelle concierge team." },
+      { title: "Admin Sign In — Ambient & Appetite" },
+      { name: "description", content: "Private access for the Ambient & Appetite concierge team." },
     ],
   }),
 });
@@ -70,7 +70,7 @@ function AuthPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="h-12 w-full border border-input bg-background/40 px-4 text-sm text-ivory outline-none placeholder:text-muted-foreground/60 focus:border-gold"
-              placeholder="you@maisonaurelle.com"
+              placeholder="you@appetiteevent.com"
             />
           </label>
 

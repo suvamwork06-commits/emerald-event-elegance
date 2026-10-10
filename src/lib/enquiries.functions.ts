@@ -23,7 +23,7 @@ export const submitEnquiry = createServerFn({ method: "POST" })
 
     try {
       const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
-      await sendTemplateEmail("new-enquiry", "concierge@maisonaurelle.com", {
+      await sendTemplateEmail("new-enquiry", "info@appetiteevent.com", {
         templateData: {
           name: data.name,
           email: data.email,

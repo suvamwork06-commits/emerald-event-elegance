@@ -1,10 +1,23 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { Lock } from "lucide-react";
-import { brand } from "@/lib/content";
+import { brand, serviceContacts } from "@/lib/content";
 import { useAuthUser } from "@/hooks/use-auth-user";
 
 export function Footer() {
   const { user } = useAuthUser();
+  const { pathname } = useLocation();
+  const section = pathname.startsWith("/events")
+    ? "events"
+    : pathname.startsWith("/catering")
+      ? "catering"
+      : null;
+  const name = section ? serviceContacts[section].name : brand.name;
+  const emailGroups = section
+    ? [{ label: null as string | null, emails: serviceContacts[section].emails }]
+    : [
+        { label: "Events", emails: serviceContacts.events.emails },
+        { label: "Catering Services", emails: serviceContacts.catering.emails },
+      ];
 
   return (
     <footer className="grain border-t border-border bg-surface">
@@ -12,10 +25,10 @@ export function Footer() {
         <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <p className="font-display text-3xl tracking-[0.12em] text-ivory">
-              {brand.name.toUpperCase()}
+              {name.toUpperCase()}
             </p>
             <p className="mt-5 max-w-sm text-sm leading-[1.9] text-muted-foreground">
-              A luxury event atelier producing weddings, galas and private
+              Ambient Events and Appetite catering, producing weddings, galas and private
               celebrations for families and houses who expect quiet perfection.
             </p>
           </div>
@@ -62,11 +75,20 @@ export function Footer() {
                   {brand.phone}
                 </a>
               </li>
-              <li>
-                <a href={`mailto:${brand.email}`} className="link-underline hover:text-ivory">
-                  {brand.email}
-                </a>
-              </li>
+              {emailGroups.map((g) => (
+                <li key={g.label ?? "emails"}>
+                  {g.label ? (
+                    <span className="mb-1 block text-xs tracking-[0.16em] text-ivory/70 uppercase">
+                      For {g.label}
+                    </span>
+                  ) : null}
+                  {g.emails.map((e) => (
+                    <a key={e} href={`mailto:${e}`} className="link-underline block hover:text-ivory">
+                      {e}
+                    </a>
+                  ))}
+                </li>
+              ))}
             </ul>
             <ul className="mt-8 space-y-2 text-sm text-muted-foreground">
               {brand.hours.map((h) => (
@@ -82,7 +104,7 @@ export function Footer() {
         <div className="gold-rule mt-16" />
         <div className="mt-8 flex flex-col gap-3 text-xs tracking-[0.16em] text-muted-foreground/70 uppercase sm:flex-row sm:justify-between">
           <p>
-            © {new Date().getFullYear()} {brand.name}. All rights reserved.
+            © {new Date().getFullYear()} {name}. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <p>{brand.tagline}</p>
