@@ -16,6 +16,7 @@ import {
   images,
   menu,
   serviceContacts,
+  whatsappBlankFormUrl,
 } from "@/lib/content";
 
 const TITLE = "Luxury Catering — Appetite";
@@ -311,7 +312,7 @@ function Contact() {
           <div className="mt-10 flex flex-wrap gap-4">
             <LuxeButton onClick={open}>Request Quotation</LuxeButton>
             <a
-              href={`https://wa.me/${brand.whatsapp}`}
+              href={whatsappBlankFormUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
