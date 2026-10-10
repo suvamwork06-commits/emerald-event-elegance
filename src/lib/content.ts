@@ -53,7 +53,7 @@ export const brand = {
   tagline: "Luxury Event Atelier",
   phone: "+91 98300 00000",
   phoneHref: "tel:+919830000000",
-  whatsapp: "919830000000",
+  whatsapp: "918617285182",
   email: "info@appetiteevent.com",
   address: "The Atelier, 21 Camac Street, Kolkata 700016, India",
   hours: [
