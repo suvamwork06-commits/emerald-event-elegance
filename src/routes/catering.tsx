@@ -16,6 +16,7 @@ import {
   images,
   menu,
   serviceContacts,
+  whatsappBlankFormUrl,
 } from "@/lib/content";
 
 const TITLE = "Luxury Catering — Appetite";
