@@ -69,6 +69,23 @@ export const brand = {
     "https://www.google.com/maps?q=Camac%20Street%2C%20Kolkata&output=embed",
 };
 
+/** Blank enquiry form sent when a visitor taps a WhatsApp button directly. */
+export const whatsappBlankFormUrl = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(
+  [
+    "New consultation enquiry — Ambient & Appetite",
+    "",
+    "Name: ",
+    "Email: ",
+    "Phone: ",
+    "Experience: ",
+    "Approximate date: ",
+    "Guests: ",
+    "City or venue: ",
+    "Investment range: ",
+    "Notes: ",
+  ].join("\n"),
+)}`;
+
 export const services = [
   {
     title: "Wedding Planning",

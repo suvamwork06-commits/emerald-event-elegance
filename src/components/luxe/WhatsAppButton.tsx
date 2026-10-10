@@ -1,10 +1,10 @@
 import { motion } from "motion/react";
-import { brand } from "@/lib/content";
+import { whatsappBlankFormUrl } from "@/lib/content";
 
 export function WhatsAppButton() {
   return (
     <motion.a
-      href={`https://wa.me/${brand.whatsapp}`}
+      href={whatsappBlankFormUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with our concierge on WhatsApp"
