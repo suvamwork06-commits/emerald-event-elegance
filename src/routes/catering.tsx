@@ -15,6 +15,7 @@ import {
   foodGallery,
   images,
   menu,
+  serviceContacts,
 } from "@/lib/content";
 
 const TITLE = "Luxury Catering — Appetite";
