@@ -125,7 +125,7 @@ function QuoteDialog({ open, onClose }: { open: boolean; onClose: () => void }) 
 
   const buildWhatsappUrl = (values: QuoteValues) => {
     const lines = [
-      "New consultation enquiry — Maison Aurelle",
+      "New consultation enquiry — Ambient & Appetite",
       "",
       `Name: ${values.name}`,
       `Email: ${values.email}`,

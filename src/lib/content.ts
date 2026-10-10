@@ -43,13 +43,13 @@ export const images = {
 };
 
 export const brand = {
-  name: "Maison Aurelle",
-  monogram: "MA",
+  name: "Ambient & Appetite",
+  monogram: "A&A",
   tagline: "Luxury Event Atelier",
   phone: "+91 98300 00000",
   phoneHref: "tel:+919830000000",
   whatsapp: "919830000000",
-  email: "concierge@maisonaurelle.com",
+  email: "info@appetiteevent.com",
   address: "The Atelier, 21 Camac Street, Kolkata 700016, India",
   hours: [
     { day: "Monday — Friday", time: "10:00 — 19:00" },

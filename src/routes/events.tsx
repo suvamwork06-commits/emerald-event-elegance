@@ -30,9 +30,9 @@ import {
   whyUs,
 } from "@/lib/content";
 
-const TITLE = "Luxury Event Management — Maison Aurelle";
+const TITLE = "Luxury Event Management — Ambient";
 const DESCRIPTION =
-  "Celebrity weddings, destination celebrations and high-end corporate galas, designed and produced end to end by the Maison Aurelle atelier.";
+  "Celebrity weddings, destination celebrations and high-end corporate galas, designed and produced end to end by the Ambient team.";
 
 export const Route = createFileRoute("/events")({
   head: () => ({
@@ -95,18 +95,18 @@ function EventsHero() {
   return (
     <section
       ref={ref}
-      className="grain relative flex h-[88svh] min-h-[560px] items-end overflow-hidden"
+      className="grain relative flex h-svh min-h-[600px] items-end overflow-hidden"
     >
       <motion.img
         style={{ y }}
         src={images.cardEvents}
-        alt="Gold candelabra and orchids at a Maison Aurelle event"
+        alt="Gold candelabra and orchids at a Ambient event"
         width={1200}
         height={1504}
         className="absolute inset-0 size-full scale-110 object-cover object-center"
       />
-      <div className="absolute inset-0 bg-background/70" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+      <div className="absolute inset-0 bg-background/72" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/35 to-background/45" />
       <div className="relative mx-auto w-full max-w-[1400px] px-6 pb-20 md:px-10 md:pb-28">
         <Reveal>
           <ServiceLogo service="events" className="mb-8" />
@@ -171,7 +171,7 @@ function About() {
           <SectionHeading
             eyebrow="The Atelier"
             title="An atelier of six, not a factory of sixty"
-            intro="Maison Aurelle was founded on a simple refusal: no celebration should ever look like the last one. We accept a limited number of events each year so that every drawing, every tasting and every rehearsal receives the attention it deserves."
+            intro="Ambient was founded on a simple refusal: no celebration should ever look like the last one. We accept a limited number of events each year so that every drawing, every tasting and every rehearsal receives the attention it deserves."
           />
           <Reveal delay={0.2}>
             <div className="gold-rule mt-12 max-w-sm" />
@@ -179,7 +179,7 @@ function About() {
               “We are hired for taste, retained for temperament.”
             </p>
             <p className="mt-6 text-[0.68rem] tracking-[0.28em] text-muted-foreground uppercase">
-              Aurelle Sen — Founder & Creative Director
+              Founder & Creative Director, Ambient
             </p>
           </Reveal>
         </div>
@@ -193,7 +193,7 @@ function WhyUs() {
     <section className="grain relative bg-surface py-24 md:py-36">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <SectionHeading
-          eyebrow="Why Maison Aurelle"
+          eyebrow="Why Ambient"
           title="Four promises we never negotiate"
         />
         <div className="mt-16 grid gap-6 md:mt-24 md:grid-cols-2">
@@ -480,7 +480,7 @@ function Instagram() {
               >
                 <img
                   src={src}
-                  alt="Maison Aurelle event detail"
+                  alt="Ambient event detail"
                   loading="lazy"
                   className="size-full object-cover transition-transform duration-[1.3s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
                 />

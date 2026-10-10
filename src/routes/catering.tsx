@@ -17,7 +17,7 @@ import {
   menu,
 } from "@/lib/content";
 
-const TITLE = "Luxury Catering — Maison Aurelle";
+const TITLE = "Luxury Catering — Appetite";
 const DESCRIPTION =
   "Chef-led luxury catering: wedding buffets, Royal Bengali, continental and Italian menus, live counters, patisserie and a dedicated bar programme.";
 
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/catering")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FoodService",
-          name: `${brand.name} Catering`,
+          name: "Appetite",
           description: DESCRIPTION,
           telephone: brand.phone,
           email: brand.email,
@@ -322,7 +322,7 @@ function Contact() {
         <Reveal delay={0.15}>
           <div className="overflow-hidden rounded-xl border border-border">
             <iframe
-              title="Maison Aurelle atelier location"
+              title="Appetite location"
               src={brand.mapEmbed}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
