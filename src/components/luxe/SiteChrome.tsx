@@ -4,6 +4,7 @@ import { Footer } from "./Footer";
 import { Cursor } from "./Cursor";
 import { Loader } from "./Loader";
 import { WhatsAppButton } from "./WhatsAppButton";
+import { EmailButton } from "./EmailButton";
 import { QuoteProvider } from "./QuoteModal";
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
 
@@ -17,6 +18,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       <Nav />
       <main id="main">{children}</main>
       <Footer />
+      <EmailButton />
       <WhatsAppButton />
     </QuoteProvider>
   );
