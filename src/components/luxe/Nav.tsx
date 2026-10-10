@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
+import ambientLogo from "@/assets/ambient-logo-transparent.png";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
 import appetiteLogo from "@/assets/appetite-logo-transparent.png";
@@ -17,6 +18,8 @@ export function Nav() {
   const [solid, setSolid] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const { open } = useQuote();
+  const { pathname } = useLocation();
+  const isEvents = pathname.startsWith("/events");
 
   const links = publicLinks;
 
@@ -40,8 +43,8 @@ export function Nav() {
       <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 md:px-10">
         <Link to="/" className="group flex shrink-0 items-center" aria-label="Appetite Events — Home">
           <img
-            src={appetiteLogo}
-            alt="Appetite Events logo"
+            src={isEvents ? ambientLogo : appetiteLogo}
+            alt={isEvents ? "Ambient Tour & Travels logo" : "Appetite Events logo"}
             className="h-11 w-auto object-contain transition-opacity group-hover:opacity-85 md:h-14"
           />
         </Link>

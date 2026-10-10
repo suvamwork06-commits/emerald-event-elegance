@@ -286,9 +286,11 @@ function Contact() {
             <a href={brand.phoneHref} className="flex items-center gap-4 hover:text-ivory">
               <Phone className="size-4 text-gold" /> {brand.phone}
             </a>
-            <a href={`mailto:${brand.email}`} className="flex items-center gap-4 hover:text-ivory">
-              <Mail className="size-4 text-gold" /> {brand.email}
-            </a>
+            {serviceContacts.catering.emails.map((e) => (
+              <a key={e} href={`mailto:${e}`} className="flex items-center gap-4 hover:text-ivory">
+                <Mail className="size-4 text-gold" /> {e}
+              </a>
+            ))}
             <p className="flex items-start gap-4">
               <MapPin className="mt-1 size-4 shrink-0 text-gold" /> {brand.address}
             </p>

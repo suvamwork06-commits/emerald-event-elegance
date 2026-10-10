@@ -456,7 +456,7 @@ function Instagram() {
     <section className="bg-surface py-24 md:py-32">
       <div className="mx-auto max-w-[1400px] px-6 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <SectionHeading eyebrow="Instagram" title="@maisonaurelle" className="max-w-xl" />
+          <SectionHeading eyebrow="Instagram" title="@ambient" className="max-w-xl" />
           <Reveal>
             <a
               href={brand.socials[0]!.href}

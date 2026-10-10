@@ -31,6 +31,11 @@ export const serviceBrands = {
   catering: { name: "Appetite", logo: appetiteLogo.url },
 };
 
+export const serviceContacts = {
+  events: { name: "Ambient", emails: ["ambtsales@gmail.com"] },
+  catering: { name: "Appetite", emails: ["info@appetiteevent.com", "subhra@appetiteevent.com"] },
+};
+
 export const images = {
   heroWedding,
   cardEvents,
@@ -58,9 +63,7 @@ export const brand = {
   ],
   socials: [
     { label: "Instagram", href: "https://instagram.com" },
-    { label: "Pinterest", href: "https://pinterest.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "YouTube", href: "https://youtube.com" },
+    { label: "Facebook", href: "https://facebook.com" },
   ],
   mapEmbed:
     "https://www.google.com/maps?q=Camac%20Street%2C%20Kolkata&output=embed",
